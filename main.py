@@ -1,8 +1,9 @@
 import requests
 import time
+import os
 
-BOT_TOKEN = '7265759366:AAELk4P9fWzDb0X0mWBWplTWiO28cuMPCdA'
-CHAT_ID = '-1002679659476'
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 SIGNAL_FEED_URL = 'https://signal-flow-mexc.onrender.com/api/spot-latest'
 
 def get_latest_signal():
@@ -30,7 +31,7 @@ def send_to_telegram(message):
         print("❌ Telegram send error:", e)
 
 last_sent = None
-print("🚀 Bot started... waiting for signal.")
+print("🚀 Bot started... Waiting for signal.")
 
 while True:
     signal = get_latest_signal()
@@ -38,3 +39,4 @@ while True:
         send_to_telegram(signal)
         last_sent = signal
     time.sleep(30)
+    
